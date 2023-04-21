@@ -13,7 +13,8 @@
   <input type="text" id="fname" name="fname" value="John"><br>
   <label for="lname">Last name:</label><br>
   <input type="text" id="lname" name="lname" value="Doe"><br><br>
-  <div class="g-recaptcha" data-sitekey="6LcU3qYlAAAAAIw6ySUeZbJfpDWsgApl49FHnvG7"></div>
+  <div class="g-recaptcha" data-sitekey="6LcU3qYlAAAAAIw6ySUeZbJfpDWsgApl49FHnvG7" data-callback="callbackFn"></div>
+  <div id="g-recaptcha-error"></div>
   <input type="submit" value="Submit">
 </form> 
 
@@ -22,32 +23,55 @@
 </body>
 <script type="text/javascript">
 	function requestHandler() {
-	console.log(grecaptcha.getResponse());
-	debugger
-	let request = {
-		'secret': '6LcU3qYlAAAAAGo3J7wV7gZG01kSct_Ee0J5vnhy',
-		'response': grecaptcha.getResponse()
-	}
-    let response;
-    let xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            response = this.response;
-			alert(response);
-			return true;
-        } else {
-		    response = this.response;
-			alert(response);
-			return false;
+		console.log(grecaptcha.getResponse());
+		debugger
+		let request = {
+			'secret': '6LcU3qYlAAAAAGo3J7wV7gZG01kSct_Ee0J5vnhy',
+			'response': grecaptcha.getResponse()
 		}
-    };
-    xhttp.open("POST", "https://www.google.com/recaptcha/api/siteverify");	
-	xhttp.setRequestHeader( 'Access-Control-Allow-Methods', 'OPTIONS');
-	xhttp.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
-	xhttp.responseType = 'json';
-    xhttp.send(request);
-    //console.log(response);
-}
+		let response;
+		let xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				response = this.response;
+				alert(response);
+				return true;
+			} else {
+				response = this.response;
+				document.getElementById("g-recaptcha-error").innerHTML = '<span style="color:red;">Invalid Token</span>';
+				return false;
+			}
+		};
+		xhttp.open("POST", "https://www.google.com/recaptcha/api/siteverify");	
+		xhttp.setRequestHeader( 'Access-Control-Allow-Origin', '*');
+		xhttp.setRequestHeader( 'Access-Control-Allow-Methods', 'OPTIONS');
+		xhttp.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+		xhttp.responseType = 'json';
+		xhttp.send(request);
+		//console.log(response);
+	}
+	
+	function callbackFn() {
+	  <!-- return new Promise(function(resolve, reject) {   -->
+
+		<!-- if (grecaptcha === undefined) { -->
+			<!-- alert('Recaptcha non definito');  -->
+			<!-- //return; -->
+			<!-- reject(); -->
+		<!-- } -->
+
+		<!-- var response = grecaptcha.getResponse(); -->
+		<!-- console.log(response); -->
+
+		<!-- if (!response) { -->
+			<!-- alert('Coud not get recaptcha response');  -->
+			<!-- //return; -->
+			<!-- reject(); -->
+		<!-- } -->
+		
+		console.log("verified");
+		document.getElementById("g-recaptcha-error").innerHTML = '';
+	}
 </script>
 </html>
 
