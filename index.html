@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>reCAPTCHA demo: Simple page</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  </head>
+<body>
+
+<h2>HTML Forms</h2>
+
+<form action="requestHandler()">
+  <label for="fname">First name:</label><br>
+  <input type="text" id="fname" name="fname" value="John"><br>
+  <label for="lname">Last name:</label><br>
+  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <div class="g-recaptcha" data-sitekey="6LcU3qYlAAAAAIw6ySUeZbJfpDWsgApl49FHnvG7"></div>
+  <input type="submit" value="Submit">
+</form> 
+
+<p>If you click the "Submit" button, the form-data will be sent to a page called "/action_page.php".</p>
+
+</body>
+<script type="text/javascript">
+	function requestHandler() {
+
+	let request = {
+		'secret': '6LcU3qYlAAAAAGo3J7wV7gZG01kSct_Ee0J5vnhy',
+		'response': 'g-recaptcha-response'
+	}
+    let response;
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            response = this.responseText;
+        }
+    };
+    xhttp.open('POST', 'https://www.google.com/recaptcha/api/siteverify', false);
+    xhttp.send(request);
+    console.log(response);
+}
+</script>
+</html>
+
