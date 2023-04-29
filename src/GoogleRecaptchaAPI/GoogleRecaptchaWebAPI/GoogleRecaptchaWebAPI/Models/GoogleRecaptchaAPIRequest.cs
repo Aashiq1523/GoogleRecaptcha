@@ -1,4 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿/*
+Title: GoogleRecaptchaAPIRequest Class
+CreatedBy: Mohamed Aashiq
+CreatedOn: 04/29/2023
+Title:
+    This class file contains google recaptcha api request fields.
+Modifications:
+*/
+
+using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 
 namespace GoogleRecaptchaWebAPI.Models

@@ -1,4 +1,13 @@
-﻿using GoogleRecaptchaWebAPI.Models;
+﻿/*
+Title: VerifyRecaptchAPI Controller
+CreatedBy: Mohamed Aashiq
+CreatedOn: 04/29/2023
+Title:
+    This class file contains VerifyRecaptchAPI Controller to validate the google recaptcha.
+Modifications:
+*/
+
+using GoogleRecaptchaWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
